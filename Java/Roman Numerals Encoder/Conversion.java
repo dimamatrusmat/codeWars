@@ -17,50 +17,59 @@ public class Conversion {
 	}
 	
 	public static String getCode(int switcher, int res) {
+		StringBuilder sb = new StringBuilder("");
 		
 		switch (switcher) {
-			1: return "I"; break;
-			5: return "V"; break;
-			10: return "X"; break;
-			50: return "L"; break;
-			100: return "C"; break;
-			500: return "D"; break;
-			1000: return "M"; break;
+			case 1: {sb.append("I");} break;
+			case 5: {sb.append("V");} break;
+			case 10: {sb.append("X");} break;
+			case 50: {sb.append("L");} break;
+			case 100: {sb.append("C");} break;
+			case 500: {sb.append("D");} break;
+			case 1000: {sb.append("M");} break;
 		}
 		
+		return sb.toString();
 	}
 	
 	public static int getSwitcher(int n, int ten, int ost) {
 		
-		if (ten * ost < 5 * ten) {
-			return 1 * ten;
+		if (ost > 3 && ost < 8) {
+			
+			return ten * 5;
+
+		} else if (ost > 8) {
+			
+			return ten * 10;
 		} else {
-			return 5 * ten;
-		}
-		
+			return ten;
+		}	
 	}
 
     public static String solution(int n) {
 		
-		StringBuilder sb = new StringBuilder("");
+		//StringBuilder sb = new StringBuilder("");
 		
-		while (n != 0) {
-			int ten = getTen(n, 1);
-			
-			int ost = n / ten;
-			
-			int switcher = getSwitcher();
-			
-			sb.append(getCode(switcher, ost));
-			
-			n -= ost * ten;
-		}
+		//while (n != 0) {
+		//	int ten = getTen(n, 1);
+		//	
+		//	int ost = n / ten;
+		//	
+		//	int switcher = getSwitcher();
+		//	
+		//	sb.append(getCode(switcher, ost));
+		//	
+		//	n -= ost * ten;
+		//}
+		int ten = getTen(n, 1);
+	
+		int ost = n / ten;
 		
-		
+		System.out.println(getSwitcher(n, ten, ost));
         return "";
     }
 	
 	public static void main (String [] args) {
-		solution(1000);
+		solution(701);
 	}
 }
