@@ -1,4 +1,8 @@
+import java.util.Arrays;
+
 public class Conversion {
+	
+	
 	
 	public static int getTen(int n, int del) {
 		
@@ -16,8 +20,9 @@ public class Conversion {
 
 	}
 	
-	public static String getCode(int switcher, int res) {
-		StringBuilder sb = new StringBuilder("");
+	public static String getEncode(int switcher) {
+		
+		StringBuilder sb = new StringBuilder();
 		
 		switch (switcher) {
 			case 1: {sb.append("I");} break;
@@ -32,44 +37,67 @@ public class Conversion {
 		return sb.toString();
 	}
 	
-	public static int getSwitcher(int n, int ten, int ost) {
+	public static String getCode(int switcher, int dore, int ten) {
+		
+		String sb = getEncode(switcher);
+		
+		if (dore > 0) {
+			for (int i = 0; i < dore; i++) {
+				sb += getEncode(ten);
+			}
+			
+		} else {
+			for (int i = 0; i > dore; i--) {
+				sb = getEncode(ten) + sb;
+			}
+		}
+				
+		
+		return sb;
+	}
+	
+	public static int[] getSwitcher(int n, int ten, int ost) {
+		int [] ans = new int [2];
 		
 		if (ost > 3 && ost < 8) {
-			
-			return ten * 5;
+			ans[0] = ten * 5;
+			ans[1] = (ost - 5); 
 
-		} else if (ost > 8) {
-			
-			return ten * 10;
+		} else if (ost >= 8) {
+			ans[0] = ten * 10;
+			ans[1] = (ost - 10); 
+
 		} else {
-			return ten;
+			ans[0] = ten;
+			ans[1] = (ost - 1);
+			
 		}	
+		
+		return ans;
 	}
 
     public static String solution(int n) {
 		
-		//StringBuilder sb = new StringBuilder("");
+		StringBuilder sb = new StringBuilder("");
 		
-		//while (n != 0) {
-		//	int ten = getTen(n, 1);
-		//	
-		//	int ost = n / ten;
-		//	
-		//	int switcher = getSwitcher();
-		//	
-		//	sb.append(getCode(switcher, ost));
-		//	
-		//	n -= ost * ten;
-		//}
-		int ten = getTen(n, 1);
-	
-		int ost = n / ten;
-		
-		System.out.println(getSwitcher(n, ten, ost));
-        return "";
+		while (n != 0) {
+			int ten = getTen(n, 1);
+			
+			int ost = n / ten;
+			
+			int [] switchers = getSwitcher(n, ten, ost);
+			int switcher = switchers[0];
+			int dore = switchers[1];
+			
+			sb.append(getCode(switcher, dore, ten));
+			
+			n -= ost * ten;
+		}
+
+        return sb.toString();
     }
 	
 	public static void main (String [] args) {
-		solution(701);
+		System.out.println(solution(14));
 	}
 }
