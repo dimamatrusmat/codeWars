@@ -59,11 +59,11 @@ public class Conversion {
 	public static int[] getSwitcher(int n, int ten, int ost) {
 		int [] ans = new int [2];
 		
-		if (ost > 3 && ost < 8) {
+		if (ost > 3 && ost <= 8) {
 			ans[0] = ten * 5;
 			ans[1] = (ost - 5); 
 
-		} else if (ost >= 8) {
+		} else if (ost > 8) {
 			ans[0] = ten * 10;
 			ans[1] = (ost - 10); 
 
@@ -98,6 +98,6 @@ public class Conversion {
     }
 	
 	public static void main (String [] args) {
-		System.out.println(solution(14));
+		System.out.println(solution(89));
 	}
 }
